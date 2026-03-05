@@ -1,0 +1,48 @@
+name: ci cd for save and cat the output of first job
+
+on:
+  push:
+
+jobs:
+  job1:
+    name: create and run shell script
+    runs-on: ubuntu-latest
+
+  outputs:
+  script_output: ${{ steps.run_script.outputs.output }}
+  
+  steps:
+   - name: Checkout Repository
+     uses: actions/checkout@v3
+
+   - name: create shell-script
+     run: |
+       cat << 'EOF' > script.sh
+       #!/bin/bash
+       echo " Hello Aysha"
+       echo " Hello Yash Sir"
+       EOF
+
+     run: chmod +x scipt.sh
+     id: run-script
+     run: |
+       output=$(./script.sh)
+       echo "$output"
+       echo "output=$output" >> $GITHUB_OUTPUT
+      
+  job2:
+    name: save output and display
+    runs-on: ubuntu-latest
+    needs: job1
+
+    steps:
+     - name: save output to text file
+       run: |
+          echo "${{ needs.job1.outputs.script_output }}" > output.txt
+
+      - name: display output file
+        run:
+          cat output.txt
+
+
+  
