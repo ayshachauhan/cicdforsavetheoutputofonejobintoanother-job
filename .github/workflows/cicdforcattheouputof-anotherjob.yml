@@ -47,5 +47,5 @@ jobs:
 
       - name: show pipeline summary
         run: |
-          echo " CI CD pipeline summary" >> $GITHUB_STEP_summary
+          echo " CI CD pipeline summary" >> $GITHUB_STEP_SUMMARY
           echo "${{ needs.job1.outputs.script_output }}" >> $GITHUB_STEP_SUMMARY
