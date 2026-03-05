@@ -27,11 +27,9 @@ jobs:
         id: run_script
         run: |
           chmod +x script.sh
-          output=$(./script.sh)
-
-          echo "output<<EOF" >> $GITHUB_OUTPUT
-          echo "$output" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          output=$(./script.sh | tr '\n' ' ')
+          echo "$output"
+          echo "output=$output" >> $GITHUB_OUTPUT
 
   job2:
     name: save output and display
