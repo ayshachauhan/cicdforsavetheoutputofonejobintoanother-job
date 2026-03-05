@@ -19,8 +19,8 @@ jobs:
         run: |
           cat << 'EOF' > script.sh
           #!/bin/bash
-          echo " Hello Aysha"
-          echo " Hello Yash Sir"
+          echo "Hello Aysha"
+          echo "Hello Yash Sir"
           EOF
 
       - name: run the shell-script
@@ -28,8 +28,10 @@ jobs:
         run: |
           chmod +x script.sh
           output=$(./script.sh)
-          echo "$output"
-          echo "output=$output" >> $GITHUB_OUTPUT
+
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$output" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
   job2:
     name: save output and display
